@@ -6,23 +6,12 @@ class LocalDatabase {
   constructor() {
     this.dbPath = this.getDatabasePath();
     this.data = this.loadData();
+    if (!fs.existsSync(this.dbPath)) {
+      this.saveData();
+    }
   }
 
   getDatabasePath() {
-    // 1. Check if running as portable or near executable directory
-    const appDir = path.dirname(app.getPath('exe'));
-    const localDbPath = path.join(appDir, 'iptv_player_data.json');
-
-    // In production, try saving alongside app or in userData
-    try {
-      if (app.isPackaged) {
-        fs.accessSync(appDir, fs.constants.W_OK);
-        return localDbPath;
-      }
-    } catch {
-      // If program files is read-only without admin, fallback to appData
-    }
-
     const userDataDir = app.getPath('userData');
     if (!fs.existsSync(userDataDir)) {
       fs.mkdirSync(userDataDir, { recursive: true });
