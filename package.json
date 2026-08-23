@@ -98,14 +98,14 @@
       ]
     },
     "nsis": {
-      "oneClick": false,
+      "oneClick": true,
       "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
+      "allowElevation": false,
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "shortcutName": "IPTV Player Pro",
       "uninstallDisplayName": "IPTV Player Pro Kaldır",
+      "deleteAppDataOnUninstall": false,
       "runAfterFinish": true
     }
   }
