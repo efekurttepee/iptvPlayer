@@ -42,7 +42,6 @@
   "build": {
     "appId": "com.iptvplayer.pro",
     "productName": "IPTV Player Pro",
-    "executableName": "iptvplayer",
     "publish": [
       {
         "provider": "github",
@@ -98,13 +97,14 @@
       ]
     },
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": false,
-      "allowElevation": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "shortcutName": "IPTV Player Pro",
-      "uninstallDisplayName": "IPTV Player Pro Kaldır",
+      "uninstallDisplayName": "IPTV Player Pro",
       "deleteAppDataOnUninstall": false,
       "runAfterFinish": true
     }
