@@ -14,9 +14,10 @@ function createWindow() {
     backgroundColor: '#0b101b',
     autoHideMenuBar: true,
     show: false,
-    frame: process.platform === 'darwin' ? false : true,
-    titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
+    frame: false,
+    titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'hidden',
     trafficLightPosition: { x: 16, y: 16 },
+    icon: path.join(__dirname, '../public/icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,

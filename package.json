@@ -42,6 +42,7 @@
   "build": {
     "appId": "com.iptv.player",
     "productName": "IPTV Player Pro",
+    "icon": "build/icon.png",
     "publish": [
       {
         "provider": "github",
