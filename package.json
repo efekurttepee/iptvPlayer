@@ -42,6 +42,13 @@
   "build": {
     "appId": "com.iptvplayer.desktop",
     "productName": "IPTV Player Pro",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "efekurttepee",
+        "repo": "iptvPlayer"
+      }
+    ],
     "directories": {
       "output": "release"
     },
