@@ -49,6 +49,12 @@ export const UpdateNotification: React.FC = () => {
       setDownloadProgress(100);
     });
 
+    // Listen for error
+    const unsubError = electronUpdater.onError?.((err: any) => {
+      setIsDownloading(false);
+      console.warn('Updater download error:', err);
+    });
+
     // Check on startup
     electronUpdater.check().catch(() => {});
 
@@ -56,6 +62,7 @@ export const UpdateNotification: React.FC = () => {
       unsubAvailable?.();
       unsubProgress?.();
       unsubDownloaded?.();
+      unsubError?.();
     };
   }, []);
 

@@ -65,7 +65,8 @@
       ],
       "category": "public.app-category.entertainment",
       "hardenedRuntime": false,
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "artifactName": "IPTV-Player-Pro-${version}-${arch}.${ext}"
     },
     "dmg": {
       "contents": [
@@ -98,6 +99,7 @@
       ]
     },
     "nsis": {
+      "artifactName": "IPTV-Player-Pro-Setup-${version}.${ext}",
       "include": "electron/installer.nsh",
       "oneClick": true,
       "perMachine": false,
