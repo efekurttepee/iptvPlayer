@@ -40,7 +40,7 @@
     "wait-on": "^8.0.2"
   },
   "build": {
-    "appId": "com.iptvplayer.desktop",
+    "appId": "com.iptvplayer.pro",
     "productName": "IPTV Player Pro",
     "executableName": "iptvplayer",
     "publish": [
