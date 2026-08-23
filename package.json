@@ -97,11 +97,10 @@
       ]
     },
     "nsis": {
-      "include": "electron/installer.nsh",
-      "oneClick": false,
+      "oneClick": true,
       "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "shortcutName": "IPTV Player Pro",
