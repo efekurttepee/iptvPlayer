@@ -25,16 +25,16 @@
 
 ---
 
-## 🚀 Uzaktan Otomatik Güncelleme Sistemi (Dayınız & Kullanıcılar İçin)
+## 🚀 Uzaktan Otomatik Güncelleme Sistemi (  & Kullanıcılar İçin)
 
 Uygulamaya **otomatik uzaktan güncelleme sistemi (`electron-updater`)** entegre edilmiştir. 
 
 ### Güncelleme Mantığı Nasıl Çalışır?
-1. Dayınız uygulamayı açtığında program arka planda yeni sürüm olup olmadığını kontrol eder.
+1.   uygulamayı açtığında program arka planda yeni sürüm olup olmadığını kontrol eder.
 2. Yeni sürüm bulduğunda ekranın üstünde şık bir bildirim penceresi açılır:
    * **"🎉 Yeni Güncelleme Mevcut! (v1.0.2)"**
    * **[Şimdi Güncelle ve İndir]** butonu
-3. Dayınız butona bastığında:
+3.   butona bastığında:
    * Yeni `.exe` arka planda indirilir ve yüzde çubuğu (`%65 indiriliyor...`) gösterilir.
    * İndirme bittiğinde **[Yeniden Başlat ve Kur]** butonu çıkar.
    * Tıkladığında program 2 saniyede kendini kapatır, günceller ve yeni sürümle anında tekrar açılır!
