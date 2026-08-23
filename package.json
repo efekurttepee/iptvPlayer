@@ -40,7 +40,7 @@
     "wait-on": "^8.0.2"
   },
   "build": {
-    "appId": "com.iptvplayer.pro",
+    "appId": "com.iptv.player",
     "productName": "IPTV Player Pro",
     "publish": [
       {
@@ -97,6 +97,7 @@
       ]
     },
     "nsis": {
+      "include": "electron/installer.nsh",
       "oneClick": true,
       "perMachine": false,
       "allowElevation": false,
