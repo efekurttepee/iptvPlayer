@@ -20,6 +20,27 @@ class AppUpdater {
 
   setMainWindow(window) {
     this.mainWindow = window;
+    // Auto check updates 2.5 seconds after app startup
+    setTimeout(() => {
+      this.checkOnStartup();
+    }, 2500);
+  }
+
+  async checkOnStartup() {
+    try {
+      if (app.isPackaged) {
+        await autoUpdater.checkForUpdates();
+      } else {
+        // In development mode, notify that app is up to date for UI preview
+        this.sendToWindow('updater:not-available', {
+          status: 'latest',
+          version: app.getVersion(),
+          message: 'Sürümünüz güncel.',
+        });
+      }
+    } catch (err) {
+      console.warn('Auto update check on startup error:', err?.message || err);
+    }
   }
 
   setupListeners() {
@@ -33,7 +54,7 @@ class AppUpdater {
         status: 'available',
         version: info.version,
         releaseDate: info.releaseDate,
-        releaseNotes: info.releaseNotes || 'Yeni özellikler ve hata düzeltmeleri.',
+        releaseNotes: info.releaseNotes || 'Yeni özellikler, kanal optimizasyonları ve hata düzeltmeleri.',
       });
     });
 
@@ -64,7 +85,7 @@ class AppUpdater {
     });
 
     autoUpdater.on('error', (err) => {
-      console.warn('AutoUpdater error (normal in dev mode):', err?.message || err);
+      console.warn('AutoUpdater error:', err?.message || err);
       this.sendToWindow('updater:error', {
         status: 'error',
         message: err?.message || 'Güncelleme kontrol edilirken bir hata oluştu.',
@@ -75,12 +96,16 @@ class AppUpdater {
   setupIpc() {
     ipcMain.handle('updater:check', async () => {
       if (!app.isPackaged) {
-        // In development, mock check or return current version
+        this.sendToWindow('updater:not-available', {
+          status: 'latest',
+          version: app.getVersion(),
+          message: 'Sürümünüz güncel.',
+        });
         return {
           currentVersion: app.getVersion(),
           isPackaged: false,
-          status: 'dev_mode',
-          message: 'Geliştirme modunda çalışıyor.',
+          status: 'latest',
+          message: 'Geliştirme modunda çalışıyor (Sürüm Güncel).',
         };
       }
       try {
