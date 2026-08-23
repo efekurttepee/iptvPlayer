@@ -1,3 +1,5 @@
+CRCCheck off
+
 !macro customInit
   # Delete broken registry keys from previous tests so NSIS never invokes broken uninstallers
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\com.iptvplayer.desktop"
@@ -14,4 +16,10 @@
 
 !macro customCheckAppRunning
   # Bypass false process lock
+!macroend
+
+!macro customUnInit
+  nsExec::Exec 'taskkill /F /IM "IPTV Player Pro.exe" /T'
+  nsExec::Exec 'taskkill /F /IM "iptvplayer.exe" /T'
+  nsExec::Exec 'taskkill /F /IM "electron.exe" /T'
 !macroend
