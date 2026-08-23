@@ -236,7 +236,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="text-gray-400 font-semibold tracking-wider">
-          v 1.0.1
+          v 1.0.2
         </div>
       </footer>
     </div>

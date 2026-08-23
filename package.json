@@ -1,6 +1,6 @@
 {
   "name": "iptv-player-desktop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Modern IPTV Player for Windows Desktop with Xtream Codes API and Resume Playback",
   "main": "electron/main.cjs",
