@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #0a0f1d;
+  }
+  
+  body {
+    background: radial-gradient(circle at 50% 20%, #16243d 0%, #0a0f1d 75%, #060913 100%);
+    color: #ffffff;
+    user-select: none;
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Custom glowing card gradients matching the screenshot */
+.card-live-tv {
+  background: linear-gradient(145deg, #00d2c4 0%, #0099ff 55%, #0066ff 100%);
+  box-shadow: 0 10px 30px -10px rgba(0, 180, 255, 0.4);
+}
+
+.card-movies {
+  background: linear-gradient(145deg, #9d26be 0%, #5d38e2 50%, #00a2ff 100%);
+  box-shadow: 0 10px 30px -10px rgba(120, 40, 220, 0.4);
+}
+
+.card-series {
+  background: linear-gradient(145deg, #ff1a53 0%, #f94144 40%, #ff8800 100%);
+  box-shadow: 0 10px 30px -10px rgba(255, 60, 80, 0.4);
+}
+
+.card-sub-green {
+  background: linear-gradient(145deg, #10856f 0%, #137762 100%);
+  box-shadow: 0 6px 20px -6px rgba(16, 133, 111, 0.35);
+}
+
+.card-sub-green:hover {
+  background: linear-gradient(145deg, #149c83 0%, #178c73 100%);
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(16, 24, 40, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-modal {
+  background: rgba(13, 20, 36, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 198, 255, 0.15);
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 16, 30, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 198, 255, 0.5);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(0, 210, 196, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 210, 196, 0.7);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}

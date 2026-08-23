@@ -1,0 +1,36 @@
+#EXTM3U
+
+# ================= FILMLER (VOD) =================
+#EXTINF:-1 tvg-id="vod1" tvg-logo="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" group-title="Animasyon Filmleri",Big Buck Bunny (2024 Özel Baskı)
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="vod2" tvg-logo="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" group-title="Bilim Kurgu Filmleri",Tears of Steel: Robotların Yükselişi
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="vod3" tvg-logo="https://images.unsplash.com/photo-1514539079130-25950c84af65?w=500" group-title="Macera & Fantastik Filmleri",Sintel: Ejderha Avcısı (2024)
+https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8
+
+#EXTINF:-1 tvg-id="vod4" tvg-logo="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500" group-title="Belgesel Filmleri",Kozmik Evren: Galaksiler Arası Yolculuk
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="vod5" tvg-logo="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500" group-title="Aksiyon Filmleri",Hız Tutkusu: Son Sürat (2024)
+https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8
+
+#EXTINF:-1 tvg-id="vod6" tvg-logo="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500" group-title="Doğa & Çevre Filmleri",Mavi Gezegen: Derin Suların Gizemi
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+# ================= DİZİLER (SERIES & EPISODES) =================
+#EXTINF:-1 tvg-id="ser1_s1_e1" tvg-logo="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" group-title="Bilim Kurgu Dizileri",Siber Dünya S01 E01: Sisteme Giriş
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="ser1_s1_e2" tvg-logo="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" group-title="Bilim Kurgu Dizileri",Siber Dünya S01 E02: Karartma
+https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8
+
+#EXTINF:-1 tvg-id="ser1_s1_e3" tvg-logo="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" group-title="Bilim Kurgu Dizileri",Siber Dünya S01 E03: Çıkış Yolu Yok
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="ser2_s1_e1" tvg-logo="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500" group-title="Macera & Doğa Dizileri",Vahşi Doğa Günlükleri S01 E01: Kuzey Ormanları
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="ser2_s1_e2" tvg-logo="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500" group-title="Macera & Doğa Dizileri",Vahşi Doğa Günlükleri S01 E02: Zirvenin Efendileri
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
