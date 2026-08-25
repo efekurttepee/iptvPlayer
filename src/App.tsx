@@ -361,6 +361,7 @@ export const App: React.FC = () => {
         <VideoPlayer
           item={activePlayingItem}
           channelList={activePlayingItem.type === 'live' ? liveStreams : undefined}
+          categories={activePlayingItem.type === 'live' ? liveCategories : undefined}
           onClose={() => {
             setActivePlayingItem(null);
             refreshRecentWatches();
