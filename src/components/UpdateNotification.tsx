@@ -110,7 +110,7 @@ export const UpdateNotification: React.FC = () => {
     <>
       {/* 1. Sürüm Güncel Bildirimi (Otomatik Açılışta veya Denetlemede Sağ Üst Toast) */}
       {upToDateInfo && !updateAvailable && (
-        <div className="fixed top-5 right-5 z-50 flex items-center space-x-3 bg-[#161a23] border border-[#2b3244] px-4 py-3 rounded-xl shadow-xl animate-fadeIn pointer-events-auto max-w-sm">
+        <div className="fixed top-5 right-5 z-[120] flex items-center space-x-3 bg-[#161a23] border border-[#2b3244] px-4 py-3 rounded-xl shadow-2xl animate-fadeIn pointer-events-auto max-w-sm">
           <div className="w-8 h-8 rounded-lg bg-white/[0.06] text-gray-200 border border-white/10 flex items-center justify-center flex-shrink-0">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
           </div>
@@ -134,7 +134,7 @@ export const UpdateNotification: React.FC = () => {
 
       {/* 2. Yeni Sürüm Mevcut Bildirimi (Açılışta veya Denetlemede Üst Banner) */}
       {updateAvailable && !isDismissed && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 max-w-xl w-[90%] bg-[#141720] rounded-xl border border-[#272c3b] p-4 shadow-2xl animate-fadeIn pointer-events-auto">
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[120] max-w-xl w-[90%] bg-[#141720] rounded-xl border border-[#272c3b] p-4 shadow-2xl animate-fadeIn pointer-events-auto">
           <div className="flex items-start justify-between">
             <div className="flex items-start space-x-3.5">
               <div className="w-9 h-9 rounded-lg bg-white/10 text-white flex items-center justify-center flex-shrink-0">

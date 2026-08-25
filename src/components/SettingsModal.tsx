@@ -28,9 +28,41 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [dbPath, setDbPath] = useState<string>('');
 
-  useEffect(() => {
-    StorageService.getDatabaseLocation().then(path => setDbPath(path));
-  }, [isOpen]);
+  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
+  const [updateStatusMsg, setUpdateStatusMsg] = useState<string | null>(null);
+
+  const handleCheckUpdates = async () => {
+    setIsCheckingUpdate(true);
+    setUpdateStatusMsg('Denetleniyor...');
+    const updater = (window as any).electronAPI?.updater;
+    if (!updater) {
+      setIsCheckingUpdate(false);
+      setUpdateStatusMsg('Sürümünüz güncel (v1.0.4).');
+      setTimeout(() => setUpdateStatusMsg(null), 3000);
+      return;
+    }
+
+    try {
+      const res = await updater.check();
+      setIsCheckingUpdate(false);
+      if (res?.updateInfo) {
+        setUpdateStatusMsg(`Yeni sürüm bulundu: v${res.updateInfo.version}`);
+        setTimeout(() => {
+          onClose();
+        }, 1200);
+      } else if (res?.error) {
+        setUpdateStatusMsg('Sunucuya erişilemedi veya sürüm güncel.');
+        setTimeout(() => setUpdateStatusMsg(null), 3500);
+      } else {
+        setUpdateStatusMsg('Sürümünüz şu anda güncel.');
+        setTimeout(() => setUpdateStatusMsg(null), 3500);
+      }
+    } catch {
+      setIsCheckingUpdate(false);
+      setUpdateStatusMsg('Sürümünüz güncel.');
+      setTimeout(() => setUpdateStatusMsg(null), 3000);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -167,24 +199,28 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   v1.0.4
                 </span>
               </div>
-              <span className="text-[11px] text-gray-400 mt-0.5 block">Otomatik uzaktan güncelleme sistemi etkindir</span>
+              <span className="text-[11px] text-gray-400 mt-0.5 block">
+                {updateStatusMsg ? (
+                  <span className="text-blue-400 font-semibold">{updateStatusMsg}</span>
+                ) : (
+                  'Otomatik uzaktan güncelleme sistemi etkindir'
+                )}
+              </span>
             </div>
             <button
-              onClick={async () => {
-                const updater = (window as any).electronAPI?.updater;
-                if (updater) {
-                  try {
-                    await updater.check();
-                  } catch {
-                    alert('Sürümünüz güncel (v1.0.4).');
-                  }
-                } else {
-                  alert('Sürümünüz güncel (v1.0.4).');
-                }
-              }}
-              className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+              type="button"
+              onClick={handleCheckUpdates}
+              disabled={isCheckingUpdate}
+              className={`px-3.5 py-1.5 rounded-lg text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer flex items-center space-x-1.5 ${
+                isCheckingUpdate
+                  ? 'bg-blue-600/50 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-500'
+              }`}
             >
-              Güncellemeleri Denetle
+              {isCheckingUpdate && (
+                <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
+              )}
+              <span>{isCheckingUpdate ? 'Denetleniyor...' : 'Güncellemeleri Denetle'}</span>
             </button>
           </div>
 
