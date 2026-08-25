@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
   Search,
-  Heart,
   User,
   MessageSquare,
-  Download,
   RefreshCw,
-  Power,
-  Tv,
+  Layers,
   Minus,
   Square,
   X
@@ -17,24 +14,20 @@ import { UserInfo } from '../types';
 interface HeaderProps {
   userInfo?: UserInfo | null;
   onOpenSearch: () => void;
-  onOpenFavorites: () => void;
   onOpenAccount: () => void;
   onOpenNotifications: () => void;
-  onOpenDownloads: () => void;
   onRefreshData: () => void;
-  onLogout: () => void;
+  onOpenPlaylists: () => void;
   isRefreshing?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   userInfo,
   onOpenSearch,
-  onOpenFavorites,
   onOpenAccount,
   onOpenNotifications,
-  onOpenDownloads,
   onRefreshData,
-  onLogout,
+  onOpenPlaylists,
   isRefreshing = false,
 }) => {
   const [timeStr, setTimeStr] = useState('');
@@ -48,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
       const minutes = String(now.getMinutes()).padStart(2, '0');
       setTimeStr(`${hours}:${minutes}`);
 
-      // Format Turkish date: Pazartesi, 23 Mart 2026
+      // Format Turkish date: Salı, 25 Ağustos 2026
       const days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
       const months = [
         'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
@@ -84,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       onDoubleClick={handleMaximize}
       style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
-      className={`relative w-full px-8 pt-4 pb-2 flex items-center justify-between z-20 select-none cursor-default ${
+      className={`relative w-full px-8 pt-4 pb-2 flex items-center justify-between z-30 select-none cursor-default ${
         isMac ? 'pl-24' : 'pl-8'
       }`}
     >
@@ -109,10 +102,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Tarih ve Dijital Saat */}
         <div className="flex flex-col">
           <span className="text-xs font-medium text-gray-300 tracking-wide">
-            {dateStr || 'Pazartesi, 23 Mart 2026'}
+            {dateStr || 'Salı, 25 Ağustos 2026'}
           </span>
           <span className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-none">
-            {timeStr || '23:37'}
+            {timeStr || '18:21'}
           </span>
         </div>
       </div>
@@ -120,94 +113,110 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Sağ Alan: İşlem İkonları & Pencere Kontrolleri */}
       <div
         style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
-        className="flex items-center space-x-3"
+        className="flex items-center space-x-3 pointer-events-auto"
       >
         <div className="flex items-center space-x-2 bg-white/[0.04] p-1.5 rounded-full border border-white/[0.06] backdrop-blur-md shadow-inner">
           {/* Arama */}
           <button
-            onClick={onOpenSearch}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenSearch();
+            }}
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Ara (Kanal, Film, Dizi)"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-white hover:bg-white/15 transition-all active:scale-95"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
           >
             <Search className="w-5 h-5" />
           </button>
 
-          {/* Favoriler */}
-          <button
-            onClick={onOpenFavorites}
-            title="Favorilerim"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-red-400 hover:bg-white/15 transition-all active:scale-95"
-          >
-            <Heart className="w-5 h-5" />
-          </button>
-
           {/* Profil / Hesap Bilgisi */}
           <button
-            onClick={onOpenAccount}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenAccount();
+            }}
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Hesap & Abonelik Bilgileri"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-400 hover:bg-white/15 transition-all active:scale-95"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
           >
             <User className="w-5 h-5" />
           </button>
 
           {/* Bildirimler / Mesajlar */}
           <button
-            onClick={onOpenNotifications}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenNotifications();
+            }}
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Duyurular & Bildirimler"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-yellow-400 hover:bg-white/15 transition-all active:scale-95"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-yellow-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
           >
             <MessageSquare className="w-5 h-5" />
           </button>
 
-          {/* İndirilenler / Kayıtlar */}
-          <button
-            onClick={onOpenDownloads}
-            title="İndirilenler & Kayıtlar"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-emerald-400 hover:bg-white/15 transition-all active:scale-95"
-          >
-            <Download className="w-5 h-5" />
-          </button>
-
           {/* Listeyi Yenile */}
           <button
-            onClick={onRefreshData}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRefreshData();
+            }}
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="İçerik Listesini Yenile"
             disabled={isRefreshing}
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-300 hover:bg-white/15 transition-all active:scale-95 ${
+            className={`w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-300 hover:bg-white/15 transition-all active:scale-95 cursor-pointer ${
               isRefreshing ? 'animate-spin text-cyan-400' : ''
             }`}
           >
             <RefreshCw className="w-5 h-5" />
           </button>
 
-          {/* Çıkış Yap */}
+          {/* Çalma Listeleri / Hesap Değiştir */}
           <button
-            onClick={onLogout}
-            title="Çıkış Yap / Profil Değiştir"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-red-400 hover:bg-red-500/20 transition-all active:scale-95"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenPlaylists();
+            }}
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+            title="Çalma Listeleri & Hesap Değiştir"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-emerald-400 hover:bg-emerald-500/20 transition-all active:scale-95 cursor-pointer"
           >
-            <Power className="w-5 h-5" />
+            <Layers className="w-5 h-5" />
           </button>
         </div>
 
         {/* Electron Pencere Kontrolleri */}
         {(window as any).electronAPI?.isElectron && (
-          <div className="flex items-center space-x-1 ml-3 pl-3 border-l border-white/10">
+          <div
+            style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+            className="flex items-center space-x-1 ml-3 pl-3 border-l border-white/10"
+          >
             <button
+              type="button"
               onClick={handleMinimize}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+              style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
               <Minus className="w-4 h-4" />
             </button>
             <button
+              type="button"
               onClick={handleMaximize}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+              style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
               <Square className="w-3.5 h-3.5" />
             </button>
             <button
+              type="button"
               onClick={handleClose}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 transition-colors"
+              style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>

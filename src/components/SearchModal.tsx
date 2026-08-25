@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search,
   Tv,
@@ -6,10 +6,9 @@ import {
   Clapperboard,
   Play,
   X,
-  Star,
-  Clock
+  Star
 } from 'lucide-react';
-import { EpisodeInfo, LiveStream, SeriesItem, VodStream } from '../types';
+import { LiveStream, SeriesItem, VodStream } from '../types';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -35,30 +34,47 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   const [query, setQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'all' | 'live' | 'movies' | 'series'>('all');
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const filteredLive = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
-    return liveStreams.filter(s => s.name.toLowerCase().includes(q)).slice(0, 15);
+    return liveStreams.filter(s => (s.name || '').toLowerCase().includes(q)).slice(0, 30);
   }, [liveStreams, query]);
 
   const filteredMovies = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
-    return vodStreams.filter(m => m.name.toLowerCase().includes(q)).slice(0, 15);
+    return vodStreams.filter(m => (m.name || '').toLowerCase().includes(q)).slice(0, 30);
   }, [vodStreams, query]);
 
   const filteredSeries = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
-    return seriesList.filter(s => s.name.toLowerCase().includes(q)).slice(0, 15);
+    return seriesList.filter(s => (s.name || '').toLowerCase().includes(q)).slice(0, 30);
   }, [seriesList, query]);
 
   const totalResults = filteredLive.length + filteredMovies.length + filteredSeries.length;
 
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-6 animate-fadeIn select-none">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-lg p-6 animate-fadeIn select-none pointer-events-auto"
+    >
       <div className="glass-modal max-w-3xl w-full rounded-2xl border border-white/20 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
         
         {/* Search Input Bar */}
@@ -74,13 +90,15 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           />
           {query && (
             <button
+              type="button"
               onClick={() => setQuery('')}
-              className="text-xs text-gray-400 hover:text-white px-2 py-1 bg-white/10 rounded-md"
+              className="text-xs text-gray-400 hover:text-white px-2 py-1 bg-white/10 rounded-md transition-colors"
             >
               Temizle
             </button>
           )}
           <button
+            type="button"
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-white/10 text-gray-300 hover:text-white flex items-center justify-center transition-colors"
           >
@@ -91,6 +109,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         {/* Tab Filters */}
         <div className="flex items-center space-x-2 px-5 py-2.5 bg-black/20 border-b border-white/5 text-xs font-bold">
           <button
+            type="button"
             onClick={() => setActiveTab('all')}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               activeTab === 'all' ? 'bg-cyan-500 text-white' : 'text-gray-400 hover:text-white'
@@ -99,6 +118,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             Tümü ({totalResults})
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('live')}
             className={`px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1.5 ${
               activeTab === 'live' ? 'bg-cyan-500 text-white' : 'text-gray-400 hover:text-white'
@@ -108,6 +128,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             <span>Canlı TV ({filteredLive.length})</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('movies')}
             className={`px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1.5 ${
               activeTab === 'movies' ? 'bg-purple-600 text-white' : 'text-gray-400 hover:text-white'
@@ -117,6 +138,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             <span>Filmler ({filteredMovies.length})</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('series')}
             className={`px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1.5 ${
               activeTab === 'series' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'
@@ -128,18 +150,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         </div>
 
         {/* Results List */}
-        <div className="p-5 overflow-y-auto space-y-4 flex-1">
+        <div className="p-5 overflow-y-auto space-y-4 flex-1 custom-scrollbar">
           {!query.trim() ? (
             <div className="py-16 text-center text-gray-500 text-xs flex flex-col items-center">
               <Search className="w-12 h-12 stroke-[1.5] text-gray-600 mb-2" />
-              <span>Aramak istediğiniz içeriğin adını yazın...</span>
+              <span>Aramak istediğiniz kanal, film veya dizi adını yazın...</span>
             </div>
           ) : totalResults === 0 ? (
             <div className="py-16 text-center text-gray-400 text-xs">
-              "{query}" ile eşleşen kanal, film veya dizi bulunamadı.
+              "{query}" ile eşleşen içerik bulunamadı.
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-5">
               {/* Canlı Kanallar */}
               {(activeTab === 'all' || activeTab === 'live') && filteredLive.length > 0 && (
                 <div>

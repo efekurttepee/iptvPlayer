@@ -256,12 +256,10 @@ export const App: React.FC = () => {
       <Header
         userInfo={userInfo}
         onOpenSearch={() => setIsSearchOpen(true)}
-        onOpenFavorites={() => setViewMode('live')}
         onOpenAccount={() => setIsAccountOpen(true)}
         onOpenNotifications={() => setIsNotificationsOpen(true)}
-        onOpenDownloads={() => setIsDownloadsOpen(true)}
         onRefreshData={handleRefreshData}
-        onLogout={() => setIsPlaylistsOpen(true)}
+        onOpenPlaylists={() => setIsPlaylistsOpen(true)}
         isRefreshing={isRefreshing}
       />
 
