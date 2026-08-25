@@ -37,6 +37,7 @@ export const UpdateNotification: React.FC = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isInstalling, setIsInstalling] = useState(false);
 
   useEffect(() => {
     const electronUpdater = (window as any).electronAPI?.updater;
@@ -72,17 +73,20 @@ export const UpdateNotification: React.FC = () => {
       setIsDownloading(true);
     });
 
-    // Listen for download complete
+    // Listen for completed download
     const unsubDownloaded = electronUpdater.onDownloaded((data: any) => {
       setIsDownloaded(true);
       setIsDownloading(false);
       setDownloadProgress(100);
+      if (data?.version) {
+        setUpdateAvailable((prev) => prev ? { ...prev, version: data.version } : null);
+      }
     });
 
-    // Listen for error
-    const unsubError = electronUpdater.onError?.((err: any) => {
+    // Listen for updater errors
+    const unsubError = electronUpdater.onError((err: any) => {
+      console.warn('Updater component received error:', err);
       setIsDownloading(false);
-      console.warn('Updater download error:', err);
     });
 
     // Automatically check on startup
@@ -103,6 +107,7 @@ export const UpdateNotification: React.FC = () => {
   };
 
   const handleInstallAndRestart = () => {
+    setIsInstalling(true);
     (window as any).electronAPI?.updater?.install?.();
   };
 
@@ -189,11 +194,22 @@ export const UpdateNotification: React.FC = () => {
 
             {isDownloaded ? (
               <button
+                type="button"
                 onClick={handleInstallAndRestart}
-                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-extrabold shadow-lg shadow-emerald-500/30 flex items-center space-x-1.5 transition-all transform hover:scale-105 active:scale-95"
+                disabled={isInstalling}
+                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/30 flex items-center space-x-1.5 transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Yeniden Başlat ve Kur</span>
+                {isInstalling ? (
+                  <>
+                    <RotateCw className="w-4 h-4 animate-spin" />
+                    <span>Yükleniyor & Başlatılıyor...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Yeniden Başlat ve Kur</span>
+                  </>
+                )}
               </button>
             ) : isDownloading ? (
               <button

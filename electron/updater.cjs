@@ -1,12 +1,15 @@
 const { autoUpdater } = require('electron-updater');
-const { ipcMain, app } = require('electron');
+const { ipcMain, app, shell } = require('electron');
 const https = require('https');
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 class AppUpdater {
   constructor() {
     this.mainWindow = null;
     this.updateInfo = null;
+    this.downloadedFile = null;
     this.isDownloading = false;
     this.isDownloaded = false;
 
@@ -88,11 +91,12 @@ function cleanReleaseNotes(notes) {
       });
     });
 
-    autoUpdater.on('update-downloaded', (info) => {
+    autoUpdater.on('update-downloaded', (event) => {
       this.isDownloaded = true;
+      this.downloadedFile = event?.downloadedFile || (Array.isArray(event) ? event[0] : null);
       this.sendToWindow('updater:downloaded', {
         status: 'downloaded',
-        version: info.version,
+        version: event?.version || this.updateInfo?.version || '1.0.4',
         message: 'Güncelleme başarıyla indirildi. Yüklemek için yeniden başlatın.',
       });
     });
@@ -138,7 +142,10 @@ function cleanReleaseNotes(notes) {
     ipcMain.handle('updater:download', async () => {
       this.isDownloading = true;
       try {
-        await autoUpdater.downloadUpdate();
+        const downloadPromise = await autoUpdater.downloadUpdate();
+        if (Array.isArray(downloadPromise) && downloadPromise.length > 0) {
+          this.downloadedFile = downloadPromise[0];
+        }
         return { success: true };
       } catch (err) {
         this.isDownloading = false;
@@ -146,15 +153,36 @@ function cleanReleaseNotes(notes) {
       }
     });
 
-    ipcMain.handle('updater:install', () => {
+    ipcMain.handle('updater:install', async () => {
       try {
-        setImmediate(() => {
-          autoUpdater.quitAndInstall(true, true);
-        });
+        if (process.platform === 'darwin') {
+          // On macOS (unsigned app), try quitAndInstall, then open installer DMG and quit old app
+          try {
+            autoUpdater.quitAndInstall(false, true);
+          } catch (e) {
+            console.warn('macOS quitAndInstall error:', e);
+          }
+
+          setTimeout(async () => {
+            let opened = false;
+            if (this.downloadedFile && fs.existsSync(this.downloadedFile)) {
+              await shell.openPath(this.downloadedFile);
+              opened = true;
+            }
+            if (!opened) {
+              await shell.openExternal('https://github.com/efekurttepee/iptvPlayer/releases/latest');
+            }
+            app.quit();
+          }, 600);
+        } else {
+          // Windows NSIS - Silent install and force relaunch
+          setImmediate(() => {
+            autoUpdater.quitAndInstall(true, true);
+          });
+        }
       } catch (err) {
-        console.error('quitAndInstall fallback error:', err);
-        app.relaunch();
-        app.exit(0);
+        console.error('updater:install error:', err);
+        app.quit();
       }
     });
 
