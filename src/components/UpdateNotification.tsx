@@ -56,7 +56,7 @@ export const UpdateNotification: React.FC = () => {
     // Listen for up-to-date notification (Every launch or check)
     const unsubNotAvailable = electronUpdater.onNotAvailable((data: any) => {
       setUpToDateInfo({
-        version: data.version || '1.0.3',
+        version: data.version || '1.0.4',
         message: data.message || 'Sürümünüz güncel.',
       });
 

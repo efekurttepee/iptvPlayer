@@ -164,7 +164,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="flex items-center space-x-2">
                 <span className="text-xs font-bold text-white block">Uygulama Sürümü</span>
                 <span className="text-[10px] bg-white/10 text-gray-300 px-2 py-0.5 rounded border border-white/10 font-bold">
-                  v1.0.3
+                  v1.0.4
                 </span>
               </div>
               <span className="text-[11px] text-gray-400 mt-0.5 block">Otomatik uzaktan güncelleme sistemi etkindir</span>
@@ -176,10 +176,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   try {
                     await updater.check();
                   } catch {
-                    alert('Sürümünüz güncel (v1.0.3).');
+                    alert('Sürümünüz güncel (v1.0.4).');
                   }
                 } else {
-                  alert('Sürümünüz güncel (v1.0.3).');
+                  alert('Sürümünüz güncel (v1.0.4).');
                 }
               }}
               className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer"
