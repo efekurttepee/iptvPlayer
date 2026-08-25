@@ -48,13 +48,26 @@ class AppUpdater {
       this.sendToWindow('updater:status', { status: 'checking', message: 'Güncellemeler denetleniyor...' });
     });
 
+function cleanReleaseNotes(notes) {
+  if (!notes) return 'Yeni özellikler, kanal optimizasyonları ve hata düzeltmeleri.';
+  if (Array.isArray(notes)) {
+    notes = notes.map((n) => n.note || n).join(' ');
+  }
+  return String(notes)
+    .replace(/<[^>]*>?/gm, ' ')
+    .replace(/#{1,6}\s?/g, '')
+    .replace(/[*_~`]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
     autoUpdater.on('update-available', (info) => {
       this.updateInfo = info;
       this.sendToWindow('updater:available', {
         status: 'available',
         version: info.version,
         releaseDate: info.releaseDate,
-        releaseNotes: info.releaseNotes || 'Yeni özellikler, kanal optimizasyonları ve hata düzeltmeleri.',
+        releaseNotes: cleanReleaseNotes(info.releaseNotes),
       });
     });
 
@@ -134,7 +147,15 @@ class AppUpdater {
     });
 
     ipcMain.handle('updater:install', () => {
-      autoUpdater.quitAndInstall(false, true);
+      try {
+        setImmediate(() => {
+          autoUpdater.quitAndInstall(true, true);
+        });
+      } catch (err) {
+        console.error('quitAndInstall fallback error:', err);
+        app.relaunch();
+        app.exit(0);
+      }
     });
 
     ipcMain.handle('updater:get-version', () => {

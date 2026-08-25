@@ -20,6 +20,16 @@ interface UpToDateData {
   message?: string;
 }
 
+function cleanReleaseNotes(notes?: string) {
+  if (!notes) return 'Yeni özellikler ve kararlılık iyileştirmeleri.';
+  return String(notes)
+    .replace(/<[^>]*>?/gm, ' ')
+    .replace(/#{1,6}\s?/g, '')
+    .replace(/[*_~`]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export const UpdateNotification: React.FC = () => {
   const [updateAvailable, setUpdateAvailable] = useState<UpdateData | null>(null);
   const [upToDateInfo, setUpToDateInfo] = useState<UpToDateData | null>(null);
@@ -138,7 +148,7 @@ export const UpdateNotification: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1 line-clamp-2">
-                  {updateAvailable.releaseNotes || 'Yeni özellikler ve kararlılık iyileştirmeleri.'}
+                  {cleanReleaseNotes(updateAvailable.releaseNotes)}
                 </p>
               </div>
             </div>
