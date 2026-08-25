@@ -88,23 +88,18 @@ export const Header: React.FC<HeaderProps> = ({
       >
         {/* Özel IPTV Logo */}
         <div className="flex items-center space-x-2.5">
-          <div className="relative w-12 h-10 border-2 border-white/80 rounded-xl flex flex-col items-center justify-center bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md shadow-lg shadow-cyan-500/10">
+          <div className="relative w-11 h-9 border border-white/20 rounded-xl flex flex-col items-center justify-center bg-[#151922]">
             <span className="text-[11px] font-black tracking-widest text-white leading-none">IPTV</span>
-            <div className="flex items-center space-x-0.5 mt-0.5">
-              <span className="w-1 h-1 bg-cyan-400 rounded-full animate-ping"></span>
-              <span className="text-[7px] font-bold text-cyan-300">PRO</span>
-            </div>
-            {/* TV Stand Legs */}
-            <div className="absolute -bottom-1.5 w-6 h-[2px] bg-white/60 rounded-full"></div>
+            <span className="text-[7px] font-bold text-gray-400 mt-0.5 tracking-wider">PRO</span>
           </div>
         </div>
 
         {/* Tarih ve Dijital Saat */}
         <div className="flex flex-col">
-          <span className="text-xs font-medium text-gray-300 tracking-wide">
+          <span className="text-xs font-medium text-gray-400 tracking-wide">
             {dateStr || 'Salı, 25 Ağustos 2026'}
           </span>
-          <span className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-none">
+          <span className="text-3xl lg:text-4xl font-bold text-white tracking-tight leading-none">
             {timeStr || '18:21'}
           </span>
         </div>
@@ -115,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
         style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
         className="flex items-center space-x-3 pointer-events-auto"
       >
-        <div className="flex items-center space-x-2 bg-white/[0.04] p-1.5 rounded-full border border-white/[0.06] backdrop-blur-md shadow-inner">
+        <div className="flex items-center space-x-1.5 bg-[#151821] p-1.5 rounded-full border border-[#242938]">
           {/* Arama */}
           <button
             type="button"
@@ -125,9 +120,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Ara (Kanal, Film, Dizi)"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-4.5 h-4.5" />
           </button>
 
           {/* Profil / Hesap Bilgisi */}
@@ -139,9 +134,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Hesap & Abonelik Bilgileri"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer"
           >
-            <User className="w-5 h-5" />
+            <User className="w-4.5 h-4.5" />
           </button>
 
           {/* Bildirimler / Mesajlar */}
@@ -153,9 +148,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Duyurular & Bildirimler"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-yellow-400 hover:bg-white/15 transition-all active:scale-95 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer"
           >
-            <MessageSquare className="w-5 h-5" />
+            <MessageSquare className="w-4.5 h-4.5" />
           </button>
 
           {/* Listeyi Yenile */}
@@ -168,11 +163,11 @@ export const Header: React.FC<HeaderProps> = ({
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="İçerik Listesini Yenile"
             disabled={isRefreshing}
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-cyan-300 hover:bg-white/15 transition-all active:scale-95 cursor-pointer ${
-              isRefreshing ? 'animate-spin text-cyan-400' : ''
+            className={`w-9 h-9 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer ${
+              isRefreshing ? 'animate-spin text-white' : ''
             }`}
           >
-            <RefreshCw className="w-5 h-5" />
+            <RefreshCw className="w-4.5 h-4.5" />
           </button>
 
           {/* Çalma Listeleri / Hesap Değiştir */}
@@ -184,9 +179,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
             title="Çalma Listeleri & Hesap Değiştir"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-200 hover:text-emerald-400 hover:bg-emerald-500/20 transition-all active:scale-95 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all active:scale-95 cursor-pointer"
           >
-            <Layers className="w-5 h-5" />
+            <Layers className="w-4.5 h-4.5" />
           </button>
         </div>
 

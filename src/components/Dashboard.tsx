@@ -65,23 +65,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
             onClick={() => onNavigate('live')}
             role="button"
             tabIndex={0}
-            className="col-span-4 h-full rounded-2xl card-live-tv p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-cyan-500/50 group border border-white/20 relative overflow-hidden"
+            className="col-span-4 h-full rounded-2xl card-live-tv p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.01] group relative overflow-hidden"
           >
-            {/* Arka plan parlama efekti */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
-            
-            {/* Özel Segmentli Dairesel Canlı TV İkonu */}
-            <div className="relative w-28 h-28 lg:w-32 lg:h-32 mb-6 flex items-center justify-center">
-              {/* Segmentli dış halka */}
-              <div className="absolute inset-0 rounded-full border-4 border-dashed border-white/70 animate-[spin_20s_linear_infinite]" />
-              <div className="absolute inset-2 rounded-full border-2 border-white/30" />
-              {/* İç Daire & Oynat İkonu */}
-              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
-                <Play className="w-8 h-8 text-white fill-white ml-1" />
-              </div>
+            {/* Özel Sade Canlı TV İkonu */}
+            <div className="w-24 h-24 mb-6 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              <Play className="w-10 h-10 text-white fill-white ml-1" />
             </div>
 
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md group-hover:tracking-wider transition-all">
+            <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-wide">
               Canlı TV
             </h2>
           </div>
@@ -92,87 +83,68 @@ export const Dashboard: React.FC<DashboardProps> = ({
             {/* Üst Satır: FİLMLER & DİZİLER */}
             <div className="grid grid-cols-2 gap-4 flex-1">
               
-              {/* 2. FİLMLER (Mor/Mavi Degrade Kart) */}
+              {/* 2. FİLMLER */}
               <div
                 onClick={() => onNavigate('movies')}
                 role="button"
                 tabIndex={0}
-                className="h-full rounded-2xl card-movies p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/50 group border border-white/20 relative overflow-hidden"
+                className="h-full rounded-2xl card-movies p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.01] group relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
-
-                {/* Film Makarası İkonu */}
-                <div className="w-20 h-20 lg:w-24 lg:h-24 mb-4 rounded-full border-4 border-white/80 flex items-center justify-center relative shadow-xl group-hover:rotate-12 transition-transform duration-500">
-                  <div className="w-12 h-12 rounded-full border-2 border-dashed border-white/60 flex items-center justify-center">
-                    <Film className="w-7 h-7 text-white" />
-                  </div>
-                  {/* Dış delikler efekti */}
-                  <div className="absolute top-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute bottom-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute left-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute right-1 w-2.5 h-2.5 rounded-full bg-white/70" />
+                <div className="w-20 h-20 mb-4 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                  <Film className="w-8 h-8 text-white" />
                 </div>
 
-                <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md">
+                <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-wide">
                   Filmler
                 </h2>
               </div>
 
-              {/* 3. DİZİLER (Kırmızı/Turuncu Degrade Kart) */}
+              {/* 3. DİZİLER */}
               <div
                 onClick={() => onNavigate('series')}
                 role="button"
                 tabIndex={0}
-                className="h-full rounded-2xl card-series p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-500/50 group border border-white/20 relative overflow-hidden"
+                className="h-full rounded-2xl card-series p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.01] group relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
-
-                {/* Dizi Makarası İkonu */}
-                <div className="w-20 h-20 lg:w-24 lg:h-24 mb-4 rounded-full border-4 border-white/80 flex items-center justify-center relative shadow-xl group-hover:-rotate-12 transition-transform duration-500">
-                  <div className="w-12 h-12 rounded-full border-2 border-dashed border-white/60 flex items-center justify-center">
-                    <Clapperboard className="w-7 h-7 text-white" />
-                  </div>
-                  <div className="absolute top-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute bottom-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute left-1 w-2.5 h-2.5 rounded-full bg-white/70" />
-                  <div className="absolute right-1 w-2.5 h-2.5 rounded-full bg-white/70" />
+                <div className="w-20 h-20 mb-4 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                  <Clapperboard className="w-8 h-8 text-white" />
                 </div>
 
-                <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md">
+                <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-wide">
                   Diziler
                 </h2>
               </div>
             </div>
 
-            {/* Alt Satır: TEKRAR İZLE, AYARLAR, HESAP DEĞİŞTİR (3 Yeşil Alt Kart) */}
+            {/* Alt Satır: TEKRAR İZLE, AYARLAR, HESAP DEĞİŞTİR */}
             <div className="grid grid-cols-3 gap-4 h-24 lg:h-28">
               
-              {/* 4. TEKRAR İZLE (Catch Up) */}
+              {/* 4. TEKRAR İZLE */}
               <div
                 onClick={() => onNavigate('catchup')}
                 role="button"
                 tabIndex={0}
-                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
+                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-200 hover:scale-[1.02] group"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:-rotate-45 transition-transform flex-shrink-0">
-                  <RotateCcw className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center flex-shrink-0">
+                  <RotateCcw className="w-4.5 h-4.5 text-white" />
                 </div>
-                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                <span className="text-base font-semibold text-white tracking-wide">
                   Tekrar İzle
                 </span>
               </div>
 
-              {/* 5. AYARLAR (Settings) */}
+              {/* 5. AYARLAR */}
               <div
                 onClick={() => onNavigate('settings')}
                 role="button"
                 tabIndex={0}
-                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
+                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-200 hover:scale-[1.02] group"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:rotate-90 transition-transform flex-shrink-0">
-                  <Settings className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center flex-shrink-0">
+                  <Settings className="w-4.5 h-4.5 text-white" />
                 </div>
-                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                <span className="text-base font-semibold text-white tracking-wide">
                   Ayarlar
                 </span>
               </div>
@@ -182,12 +154,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 onClick={() => onNavigate('playlists')}
                 role="button"
                 tabIndex={0}
-                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
+                className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-200 hover:scale-[1.02] group"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                  <ListVideo className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center flex-shrink-0">
+                  <ListVideo className="w-4.5 h-4.5 text-white" />
                 </div>
-                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                <span className="text-base font-semibold text-white tracking-wide">
                   Hesap Değiştir
                 </span>
               </div>
@@ -217,8 +189,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        <div className="text-gray-400 font-semibold tracking-wider">
-          v 1.0.2
+        <div className="text-gray-400 font-medium tracking-wider">
+          v 1.0.3
         </div>
       </footer>
     </div>

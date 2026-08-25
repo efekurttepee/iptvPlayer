@@ -159,12 +159,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
 
           {/* Uygulama Güncelleme Denetimi */}
-          <div className="bg-white/[0.04] p-4 rounded-xl border border-white/10 flex items-center justify-between">
+          <div className="bg-[#181c25] p-4 rounded-xl border border-[#272c3b] flex items-center justify-between">
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xs font-bold text-white block">Uygulama Sürümü</span>
-                <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/30 font-bold">
-                  v1.0.2
+                <span className="text-[10px] bg-white/10 text-gray-300 px-2 py-0.5 rounded border border-white/10 font-bold">
+                  v1.0.3
                 </span>
               </div>
               <span className="text-[11px] text-gray-400 mt-0.5 block">Otomatik uzaktan güncelleme sistemi etkindir</span>
@@ -175,15 +175,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 if (updater) {
                   try {
                     await updater.check();
-                    alert('Güncellemeler denetlendi. Yeni bir sürüm yayınlandığında ekranda indirme penceresi belirecektir.');
                   } catch {
-                    alert('Sürümünüz şu anda güncel (v1.0.2).');
+                    alert('Sürümünüz güncel (v1.0.3).');
                   }
                 } else {
-                  alert('Sürümünüz güncel (v1.0.2).');
+                  alert('Sürümünüz güncel (v1.0.3).');
                 }
               }}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold transition-all shadow-md active:scale-95"
+              className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer"
             >
               Güncellemeleri Denetle
             </button>
