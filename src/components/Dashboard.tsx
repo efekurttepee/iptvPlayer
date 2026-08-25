@@ -84,9 +84,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md group-hover:tracking-wider transition-all">
               Canlı TV
             </h2>
-            <span className="text-xs text-white/80 mt-2 font-medium tracking-wider">
-              Yüzlerce Ulusal & Spor Kanalı
-            </span>
           </div>
 
           {/* Sağ Alan (8 Kolon: Üstte Filmler & Diziler, Altta Küçük Kartlar) */}
@@ -119,9 +116,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md">
                   Filmler
                 </h2>
-                <span className="text-xs text-white/80 mt-1 font-medium">
-                  Vizyon, Aksiyon, 4K UHD VOD
-                </span>
               </div>
 
               {/* 3. DİZİLER (Kırmızı/Turuncu Degrade Kart) */}
@@ -147,13 +141,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-wide drop-shadow-md">
                   Diziler
                 </h2>
-                <span className="text-xs text-white/80 mt-1 font-medium">
-                  Tüm Sezonlar & Bölümler
-                </span>
               </div>
             </div>
 
-            {/* Alt Satır: TEKRAR İZLE, AYARLAR, ÇALMA LİSTELERİ (3 Yeşil Alt Kart) */}
+            {/* Alt Satır: TEKRAR İZLE, AYARLAR, HESAP DEĞİŞTİR (3 Yeşil Alt Kart) */}
             <div className="grid grid-cols-3 gap-4 h-24 lg:h-28">
               
               {/* 4. TEKRAR İZLE (Catch Up) */}
@@ -163,15 +154,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 tabIndex={0}
                 className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:-rotate-45 transition-transform">
+                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:-rotate-45 transition-transform flex-shrink-0">
                   <RotateCcw className="w-5 h-5 text-white" />
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
-                    Tekrar İzle
-                  </span>
-                  <span className="text-[10px] text-emerald-200">İzleme Geçmişi & Devam</span>
-                </div>
+                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                  Tekrar İzle
+                </span>
               </div>
 
               {/* 5. AYARLAR (Settings) */}
@@ -181,33 +169,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 tabIndex={0}
                 className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:rotate-90 transition-transform">
+                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:rotate-90 transition-transform flex-shrink-0">
                   <Settings className="w-5 h-5 text-white" />
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
-                    Ayarlar
-                  </span>
-                  <span className="text-[10px] text-emerald-200">Tercihler & EPG</span>
-                </div>
+                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                  Ayarlar
+                </span>
               </div>
 
-              {/* 6. ÇALMA LİSTELERİ (Playlists) */}
+              {/* 6. HESAP DEĞİŞTİR */}
               <div
                 onClick={() => onNavigate('playlists')}
                 role="button"
                 tabIndex={0}
                 className="h-full rounded-xl card-sub-green px-4 flex items-center justify-center space-x-3 cursor-pointer transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/30 group border border-white/15"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                   <ListVideo className="w-5 h-5 text-white" />
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
-                    Çalma Listeleri
-                  </span>
-                  <span className="text-[10px] text-emerald-200">Hesap Değiştir</span>
-                </div>
+                <span className="text-base lg:text-lg font-bold text-white tracking-wide leading-tight">
+                  Hesap Değiştir
+                </span>
               </div>
 
             </div>
