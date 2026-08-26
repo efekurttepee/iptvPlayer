@@ -205,10 +205,26 @@ export const StorageService = {
     const activeId = this.getActiveCredentialId();
     if (!activeId) return [];
     const all = this.getAllResumeRecords();
-    return Object.values(all)
+    const sorted = Object.values(all)
       .filter(r => r.currentTime > 5 && r.accountId === activeId)
-      .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
-      .slice(0, limit);
+      .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+    // Her dizi için en son izlenen bölümü tut (Örn: 3. bölümden 5. bölüme geçince 5. bölüm gösterilir)
+    const seenSeries = new Set<string | number>();
+    const deduplicated: ResumeRecord[] = [];
+
+    for (const record of sorted) {
+      if (record.type === 'episode' && record.seriesId) {
+        if (!seenSeries.has(record.seriesId)) {
+          seenSeries.add(record.seriesId);
+          deduplicated.push(record);
+        }
+      } else {
+        deduplicated.push(record);
+      }
+    }
+
+    return deduplicated.slice(0, limit);
   },
 
   // 🧹 Purge orphaned/legacy resume records
