@@ -9,6 +9,7 @@ import {
   Star
 } from 'lucide-react';
 import { LiveStream, SeriesItem, VodStream } from '../types';
+import { SmartPoster } from './SmartPoster';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -206,11 +207,12 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                         className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 flex items-center space-x-2.5 cursor-pointer group transition-colors"
                       >
                         <div className="w-8 h-11 bg-black rounded overflow-hidden flex-shrink-0">
-                          {m.stream_icon ? (
-                            <img src={m.stream_icon} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <Film className="w-4 h-4 text-gray-500 m-auto" />
-                          )}
+                          <SmartPoster
+                            initialUrl={m.stream_icon}
+                            title={m.name}
+                            isSeries={false}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div className="truncate flex-1">
                           <p className="text-xs font-semibold text-white truncate">{m.name}</p>
@@ -244,11 +246,12 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                         className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 flex items-center space-x-2.5 cursor-pointer group transition-colors"
                       >
                         <div className="w-8 h-11 bg-black rounded overflow-hidden flex-shrink-0">
-                          {s.cover ? (
-                            <img src={s.cover} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <Clapperboard className="w-4 h-4 text-gray-500 m-auto" />
-                          )}
+                          <SmartPoster
+                            initialUrl={s.cover}
+                            title={s.name}
+                            isSeries={true}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div className="truncate flex-1">
                           <p className="text-xs font-semibold text-white truncate">{s.name}</p>

@@ -12,6 +12,7 @@ import {
   X
 } from 'lucide-react';
 import { AppSettings, StorageService } from '../services/storage';
+import { clearLocalPosterCache } from '../services/localPosterCache';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -179,6 +180,24 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Sıfırla</span>
+            </button>
+          </div>
+
+          {/* Afiş Önbelleğini Temizle */}
+          <div className="bg-white/[0.04] p-4 rounded-xl border border-white/10 flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-white block">Yerel Afiş Önbelleği</span>
+              <span className="text-[11px] text-gray-400">Cihazınıza kaydedilen akıllı film ve dizi afişlerini temizler</span>
+            </div>
+            <button
+              onClick={() => {
+                clearLocalPosterCache();
+                alert('Yerel afiş önbelleği temizlendi.');
+              }}
+              className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-semibold transition-colors flex items-center space-x-1"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Temizle</span>
             </button>
           </div>
 

@@ -17,6 +17,7 @@ import {
 import { Category, EpisodeInfo, ResumeRecord, SeriesInfoResponse, SeriesItem } from '../types';
 import { StorageService } from '../services/storage';
 import { translateCategory } from '../utils/categoryTranslator';
+import { SmartPoster } from './SmartPoster';
 
 interface SeriesViewProps {
   categories: Category[];
@@ -245,21 +246,12 @@ export const SeriesView: React.FC<SeriesViewProps> = ({
                     >
                       {/* Poster */}
                       <div className="relative aspect-[2/3] w-full bg-black/50 overflow-hidden">
-                        {series.cover ? (
-                          <img
-                            src={series.cover}
-                            alt={series.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-500">
-                            <Clapperboard className="w-10 h-10" />
-                          </div>
-                        )}
+                        <SmartPoster
+                          initialUrl={series.cover}
+                          title={series.name}
+                          isSeries={true}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
 
                         {/* Puan */}
                         {series.rating && (
@@ -329,9 +321,10 @@ export const SeriesView: React.FC<SeriesViewProps> = ({
 
               <div className="relative z-10 flex space-x-5 items-end">
                 <div className="w-24 h-36 rounded-xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black flex-shrink-0">
-                  <img
-                    src={selectedSeries.cover}
-                    alt=""
+                  <SmartPoster
+                    initialUrl={selectedSeries.cover}
+                    title={selectedSeries.name}
+                    isSeries={true}
                     className="w-full h-full object-cover"
                   />
                 </div>

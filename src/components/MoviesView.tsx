@@ -17,6 +17,7 @@ import {
 import { Category, ResumeRecord, VodInfo, VodStream } from '../types';
 import { StorageService } from '../services/storage';
 import { translateCategory } from '../utils/categoryTranslator';
+import { SmartPoster } from './SmartPoster';
 
 interface MoviesViewProps {
   categories: Category[];
@@ -232,21 +233,12 @@ export const MoviesView: React.FC<MoviesViewProps> = ({
                     >
                       {/* Poster */}
                       <div className="relative aspect-[2/3] w-full bg-black/50 overflow-hidden">
-                        {movie.stream_icon ? (
-                          <img
-                            src={movie.stream_icon}
-                            alt={movie.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-500">
-                            <Film className="w-10 h-10" />
-                          </div>
-                        )}
+                        <SmartPoster
+                          initialUrl={movie.stream_icon}
+                          title={movie.name}
+                          isSeries={false}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
 
                         {/* IMDb Puanı */}
                         {movie.rating && (
@@ -331,9 +323,10 @@ export const MoviesView: React.FC<MoviesViewProps> = ({
 
               <div className="relative z-10 flex space-x-5 items-end">
                 <div className="w-24 h-36 rounded-xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black flex-shrink-0">
-                  <img
-                    src={selectedMovie.stream_icon}
-                    alt=""
+                  <SmartPoster
+                    initialUrl={selectedMovie.stream_icon}
+                    title={selectedMovie.name}
+                    isSeries={false}
                     className="w-full h-full object-cover"
                   />
                 </div>

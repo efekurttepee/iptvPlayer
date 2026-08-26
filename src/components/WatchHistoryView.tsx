@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { ResumeRecord } from '../types';
+import { SmartPoster } from './SmartPoster';
 
 interface WatchHistoryViewProps {
   historyItems: ResumeRecord[];
@@ -184,21 +185,12 @@ export const WatchHistoryView: React.FC<WatchHistoryViewProps> = ({
                 >
                   {/* Poster & Önizleme */}
                   <div className="relative aspect-video w-full bg-black/60 overflow-hidden">
-                    {item.cover ? (
-                      <img
-                        src={item.cover}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        onError={(e) => {
-                          (e.target as HTMLElement).style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-500">
-                        {isMovie ? <Film className="w-10 h-10" /> : <Clapperboard className="w-10 h-10" />}
-                      </div>
-                    )}
+                    <SmartPoster
+                      initialUrl={item.cover}
+                      title={item.title}
+                      isSeries={!isMovie}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
 
                     {/* Tür Rozeti */}
                     <div className="absolute top-2.5 left-2.5 flex items-center space-x-1">
